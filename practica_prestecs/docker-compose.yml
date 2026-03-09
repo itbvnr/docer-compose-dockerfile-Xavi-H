@@ -1,0 +1,42 @@
+# Versió del format de docker-compose utilitzat.
+# La 3.8 és compatible amb les funcionalitats de Docker actuals.
+version: '3.8'
+
+# Plugins: instal·lar pluguins de Visual Studio Code per a Docker i YAML
+# Docker DX Docker (De Microsoft) i YAML (De Red Hat) per a una millor experiència de desenvolupament.
+# Entre d'alte coses, permet executar comandes de Docker directament des del codi i validar la sintaxi YAML.
+
+services:
+  # 1. Servei de Base de Dades (MariaDB)
+  # Equivalent a docker run -d --rm --name c_bd3 -e MYSQL_ROOT_PASSWORD=root -e MYSQL_DATABASE=db_dawe -e MYSQL_USER=user_dawe -e MYSQL_PASSWORD=pwd mariadb:10.6
+  c_bd3:
+    image: mariadb:10.6  
+    container_name: c_bd3
+    # Nota: El --rm no es posa aquí, el Compose gestiona el cicle de vida amb 'down'
+    environment: # Variables d'entorn per configurar la base de dades en el primer inici.      
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: db_dawe
+      MYSQL_USER: user_dawe
+      MYSQL_PASSWORD: pwd
+    restart: always  # Reinicia el contenidor al fallar o després d'un reboot de l'host
+    volumes:
+      # PERSISTENCIA: Named Volume per que les dades no s'esborrin al esborrar el contenidor
+      - dades_mariadb:/var/lib/mysql
+      # AUTO-INICIALIZACIÓN: Mapear el SQL a la carpeta de MariaDB
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
+
+  # 2. Servei de PHPMyAdmin (Gestor web)
+  # equivalent a docker run -d --rm --name c_phpmyadmin3 -p 8080:80 -e PMA_HOST=c_bd3 -e MYSQL_ROOT_PASSWORD=root phpmyadmin:latest
+  c_web:
+    build: .          # Busca el Dockerfile en la carpeta actual
+    container_name: c_web
+    ports:
+      - "8080:80"     # Puerto 8080 en el host i 80 en el contenedor
+    volumes:
+      # BIND MOUNT: Sincroniza tu carpeta local con la del servidor web
+      - ./app:/var/www/html
+    depends_on:
+      - c_bd3
+
+volumes:
+  dades_mariadb:      # Declarar el volum amb nom
