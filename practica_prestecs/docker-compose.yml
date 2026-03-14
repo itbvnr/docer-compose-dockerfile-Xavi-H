@@ -18,17 +18,16 @@ services:
       MYSQL_DATABASE: db_dawe
       MYSQL_USER: user_dawe
       MYSQL_PASSWORD: pwd
-    restart: always  # Reinicia el contenidor al fallar o després d'un reboot de l'host
     volumes:
       # PERSISTENCIA: Named Volume per que les dades no s'esborrin al esborrar el contenidor
       - dades_mariadb:/var/lib/mysql
       # AUTO-INICIALIZACIÓN: Mapear el SQL a la carpeta de MariaDB
       - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
-
+    restart: always  # Reinicia el contenidor al fallar o després d'un reboot de l'host
   # 2. Servei de PHPMyAdmin (Gestor web)
   # equivalent a docker run -d --rm --name c_phpmyadmin3 -p 8080:80 -e PMA_HOST=c_bd3 -e MYSQL_ROOT_PASSWORD=root phpmyadmin:latest
   c_web:
-    build: .          # Busca el Dockerfile en la carpeta actual
+    build: ./app          # Busca el Dockerfile en la carpeta app
     container_name: c_web
     ports:
       - "8080:80"     # Puerto 8080 en el host i 80 en el contenedor

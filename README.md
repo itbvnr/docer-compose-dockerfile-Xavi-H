@@ -1,4 +1,19 @@
 [![Open in Visual Studio Code](https://classroom.github.com/assets/open-in-vscode-2e0aaae1b6195c2367325f4f02e2d04e9abb55f0b24a779b69b11b9e10269abc.svg)](https://classroom.github.com/online_ide?assignment_repo_id=22926152&assignment_repo_type=AssignmentRepo)
+## Proves funcionament:
+
+### Execució docker-compose up -d --build:
+![alt text](imatgesExercici/ExecucióDocker-ComposeUp.png)
+
+### Execució docker-compose ps:
+![alt text](imatgesExercici/ExecucióDockerPs.png)
+
+### Conecció a la web:
+![alt text](imatgesExercici/PaginaWeb.png)
+
+### Persisitencia de dades:
+![alt text](imatgesExercici/PersistenciaDades.png)
+
+
 # 💻 Docker, Docker-Compose i Dockerfile
 
 Guia de referència i exercicis pràctics sobre contendors amb Dockers
@@ -212,8 +227,8 @@ Dins de la carpeta `practica_prestecs/`, has de configurar l'escenari per a que,
 
 ## ✅ Checklist de lliurament
 Has de fer commit i push al repositori de l'entrega de tot el següent
-1. [ ] El fitxer `docker-compose.yml` inclou el **Named Volume** i el **Bind Mount**.
-2. [ ] El `Dockerfile` instal·la correctament les extensions de PHP.
-3. [ ] Comprova que en obrir `http://localhost:8080`, es veuen els préstecs definits al `init.sql`.
-4. [ ] Comprova que si s'atura el sistema i s'aixeca de nou, les dades persisteixen.
-5. [ ] Entrga un zip amb el contingut del repositori
+1. [/] El fitxer `docker-compose.yml` inclou el **Named Volume** i el **Bind Mount**.
+2. [/] El `Dockerfile` instal·la correctament les extensions de PHP.
+3. [/] Comprova que en obrir `http://localhost:8080`, es veuen els préstecs definits al `init.sql`.
+4. [/] Comprova que si s'atura el sistema i s'aixeca de nou, les dades persisteixen.
+5. [/] Entrga un zip amb el contingut del repositori
